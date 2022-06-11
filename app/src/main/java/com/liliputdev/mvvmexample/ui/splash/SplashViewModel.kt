@@ -24,4 +24,16 @@ class SplashViewModel constructor(private val context: Context) : ViewModel() {
                 return "App counter is $it"
             }
         }
+
+    val isUserLoggedIn:Boolean
+    get() =Prefererences(context).isUserLoggedIn()
+
+    fun increaseCounter()
+    {
+        Prefererences(context).let {
+            var counter=it.getCounter()
+            counter++
+            it.setCounter(counter)
+        }
+    }
 }
