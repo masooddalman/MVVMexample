@@ -26,21 +26,8 @@ class SplashActivity : AppCompatActivity() {
         // increase counter
         viewModel.increaseCounter()
 
+        viewModel.completeSplash()
 
-        val intentMainActivity= Intent(this, MainActivity::class.java)
-        val intentLoginActivity= Intent(this, LoginActivity::class.java)
-        GlobalScope.launch{
-            delay(5000)
-            if (viewModel.isUserLoggedIn) {
-                //go to main activity
-                startActivity(intentMainActivity)
-                finish()
-            } else {
-                //go to login activity
-                startActivity(intentLoginActivity)
-                finish()
-            }
-        }
 
     }
 }
