@@ -12,6 +12,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import com.liliputdev.mvvmexample.extention.getOrWaitForValue
 
 
 class LoginActivity : AppCompatActivity() {
@@ -82,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
             textInputLayoutPassword.error=it.second
         })
         viewModel.buttonLoginStatus.observe(this,{
-            buttonLogin.isEnabled=(it.first&&it.second)
+            buttonLogin.isEnabled=it
         })
     }
 }
