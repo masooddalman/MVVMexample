@@ -69,6 +69,16 @@
         app:layout_constraintStart_toStartOf="@+id/textInputLayoutPassword"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
 
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPassword"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPassword"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCopyPassword"
         android:layout_width="wrap_content"

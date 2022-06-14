@@ -10,12 +10,16 @@ import com.google.android.material.textfield.TextInputLayout
 import com.liliputdev.mvvmexample.R
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Intent
+import android.view.View
+import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import com.liliputdev.mvvmexample.extention.getOrWaitForValue
+import com.liliputdev.mvvmexample.ui.mainActivity.MainActivity
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(),LoginView {
 
     lateinit var textInputLayoutUsername: TextInputLayout
     lateinit var textInputLayoutPassword: TextInputLayout
@@ -23,8 +27,10 @@ class LoginActivity : AppCompatActivity() {
     lateinit var edittextPassword: EditText
     lateinit var buttonLogin: Button
     lateinit var fabCopy: FloatingActionButton
+    lateinit var progressBarLogin:ProgressBar
 
     lateinit var viewModel: LoginViewModel
+    var isLoginButtonEnable=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         viewModel= LoginViewModel(this)
+        viewModel.setView(this)
 
         setViews()
         setOnClickListener()
@@ -47,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
         edittextUsername=findViewById(R.id.edittextUsername)
         edittextPassword=findViewById(R.id.edittextPassword)
         buttonLogin=findViewById(R.id.buttonLogin)
+        progressBarLogin=findViewById(R.id.progressBarLogin)
         fabCopy=findViewById(R.id.fabCopyPassword)
     }
     private fun addTextWatcher()
@@ -84,6 +92,26 @@ class LoginActivity : AppCompatActivity() {
         })
         viewModel.buttonLoginStatus.observe(this,{
             buttonLogin.isEnabled=it
+            isLoginButtonEnable=it
         })
+    }
+
+    override fun showLoading() {
+        runOnUiThread {
+            buttonLogin.visibility= View.GONE
+            progressBarLogin.visibility= View.VISIBLE
+        }
+    }
+
+    override fun hideLoading() {
+        runOnUiThread{
+            buttonLogin.visibility= View.VISIBLE
+            progressBarLogin.visibility= View.GONE
+        }
+    }
+
+    override fun successfulLogin() {
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
     }
 }

@@ -8,6 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.liliputdev.mvvmexample.storage.Prefererences
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Created by Masood Dalman on 6/12/2022.
@@ -18,10 +22,15 @@ class LoginViewModel constructor(val context: Context) : ViewModel() {
     val passwordError = MutableLiveData<Pair<Boolean, String>>()
     private var isUserNameCorrect = false
     private var isPasswordCorrect = false
+    var loginView: LoginView? = null
     val buttonLoginStatus = MutableLiveData<Boolean>()
 
     init {
         buttonLoginStatus.postValue((isUserNameCorrect && isPasswordCorrect))
+    }
+
+    fun setView(view: LoginView) {
+        loginView = view
     }
 
 
@@ -84,8 +93,20 @@ class LoginViewModel constructor(val context: Context) : ViewModel() {
     }
 
     fun doLogin(username: String, password: String) {
-
-
+        loginView?.showLoading()
+        GlobalScope.launch {
+            delay(1000)
+            if (username.equals("atuny0") && password.equals("9uQFF1Lh")) {
+                loginView?.successfulLogin()
+                Prefererences(context).setUserLoggedIn()
+            }
+            else
+            {
+                usernameError.postValue(Pair(true,"wrong username"))
+                passwordError.postValue(Pair(true,"wrong password"))
+            }
+            loginView?.hideLoading()
+        }
     }
 
 }
