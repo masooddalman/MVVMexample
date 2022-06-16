@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.ui.login.LoginActivity
 import com.liliputdev.mvvmexample.ui.mainActivity.MainActivity
@@ -16,6 +18,12 @@ import kotlinx.coroutines.launch
 class SplashActivity : AppCompatActivity(),SplashView {
     lateinit var viewModel: SplashViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
+        if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("theme",false))
+            AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES)
+        else
+            AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         //init viewModel
