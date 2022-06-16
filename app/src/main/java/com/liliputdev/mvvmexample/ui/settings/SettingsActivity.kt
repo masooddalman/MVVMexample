@@ -37,7 +37,19 @@ class SettingsActivity : AppCompatActivity() {
             sharedPreferences: SharedPreferences?,
             key: String?
         ) {
-            
+            key?.let {
+                when(it)
+                {
+                    "theme"->{
+                        if(sharedPreferences!!.getBoolean(key,false))
+                            AppCompatDelegate.setDefaultNightMode(
+                                AppCompatDelegate.MODE_NIGHT_YES)
+                        else
+                            AppCompatDelegate.setDefaultNightMode(
+                                AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                }
+            }
         }
 
         override fun onResume() {
