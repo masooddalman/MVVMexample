@@ -8,6 +8,7 @@ import com.liliputdev.mvvmexample.R
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.liliputdev.mvvmexample.storage.Prefererences
@@ -28,40 +29,34 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    class SettingsFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId)
+        {
+            android.R.id.home->{
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    class SettingsFragment : PreferenceFragmentCompat() {
+        lateinit var viewModel: SettingsViewModel
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-        }
-
-        override fun onSharedPreferenceChanged(
-            sharedPreferences: SharedPreferences?,
-            key: String?
-        ) {
-            key?.let {
-                when(it)
-                {
-                    "theme"->{
-                        if(sharedPreferences!!.getBoolean(key,false))
-                            AppCompatDelegate.setDefaultNightMode(
-                                AppCompatDelegate.MODE_NIGHT_YES)
-                        else
-                            AppCompatDelegate.setDefaultNightMode(
-                                AppCompatDelegate.MODE_NIGHT_NO)
-                    }
-                }
+            context?.let {
+                viewModel = SettingsViewModel(it)
             }
+
         }
 
         override fun onResume() {
             super.onResume()
-            PreferenceManager.getDefaultSharedPreferences(context)
-                .registerOnSharedPreferenceChangeListener(this)
+            viewModel.registerPreferenceChangeListener()
         }
 
         override fun onPause() {
             super.onPause()
-            PreferenceManager.getDefaultSharedPreferences(context)
-                .unregisterOnSharedPreferenceChangeListener(this)
+            viewModel.unRegisterPreferenceChangeListener()
         }
     }
 
