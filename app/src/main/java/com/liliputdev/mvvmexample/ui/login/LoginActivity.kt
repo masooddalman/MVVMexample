@@ -19,7 +19,7 @@ import com.liliputdev.mvvmexample.extention.getOrWaitForValue
 import com.liliputdev.mvvmexample.ui.mainActivity.MainActivity
 
 
-class LoginActivity : AppCompatActivity(),LoginView {
+class LoginActivity : AppCompatActivity() {
 
     lateinit var textInputLayoutUsername: TextInputLayout
     lateinit var textInputLayoutPassword: TextInputLayout
@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity(),LoginView {
         setContentView(R.layout.activity_login)
 
         viewModel= LoginViewModel(this)
-        viewModel.setView(this)
 
         setViews()
         setOnClickListener()
@@ -94,24 +93,27 @@ class LoginActivity : AppCompatActivity(),LoginView {
             buttonLogin.isEnabled=it
             isLoginButtonEnable=it
         })
-    }
 
-    override fun showLoading() {
-        runOnUiThread {
-            buttonLogin.visibility= View.GONE
-            progressBarLogin.visibility= View.VISIBLE
-        }
-    }
+        viewModel.showLoading.observe(this,{
+            if(it)
+            {
+                buttonLogin.visibility= View.GONE
+                progressBarLogin.visibility= View.VISIBLE
+            }
+            else
+            {
+                buttonLogin.visibility= View.VISIBLE
+                progressBarLogin.visibility= View.GONE
+            }
+        })
 
-    override fun hideLoading() {
-        runOnUiThread{
-            buttonLogin.visibility= View.VISIBLE
-            progressBarLogin.visibility= View.GONE
-        }
+        viewModel.loginState.observe(this,{
+            if(it)
+            {
+                startActivity(Intent(this,MainActivity::class.java))
+                finish()
+            }
+        })
     }
-
-    override fun successfulLogin() {
-        startActivity(Intent(this,MainActivity::class.java))
-        finish()
-    }
+    
 }

@@ -22,16 +22,14 @@ class LoginViewModel constructor(val context: Context) : ViewModel() {
     val passwordError = MutableLiveData<Pair<Boolean, String>>()
     private var isUserNameCorrect = false
     private var isPasswordCorrect = false
-    var loginView: LoginView? = null
     val buttonLoginStatus = MutableLiveData<Boolean>()
+    val showLoading=MutableLiveData<Boolean>(false)
+    val loginState=MutableLiveData<Boolean>(false)
 
     init {
         buttonLoginStatus.postValue((isUserNameCorrect && isPasswordCorrect))
     }
 
-    fun setView(view: LoginView) {
-        loginView = view
-    }
 
 
     fun copyCredentialToClipboard() {
@@ -93,19 +91,20 @@ class LoginViewModel constructor(val context: Context) : ViewModel() {
     }
 
     fun doLogin(username: String, password: String) {
-        loginView?.showLoading()
+        showLoading.postValue(true)
         GlobalScope.launch {
             delay(1000)
             if (username.equals("atuny0") && password.equals("9uQFF1Lh")) {
-                loginView?.successfulLogin()
+                loginState.postValue(true)
                 Prefererences(context).setUserLoggedIn()
             }
             else
             {
+                loginState.postValue(false)
                 usernameError.postValue(Pair(true,"wrong username"))
                 passwordError.postValue(Pair(true,"wrong password"))
             }
-            loginView?.hideLoading()
+            showLoading.postValue(false)
         }
     }
 
