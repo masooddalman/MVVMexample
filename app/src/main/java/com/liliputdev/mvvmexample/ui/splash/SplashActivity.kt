@@ -15,7 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity : AppCompatActivity(),SplashView {
+class SplashActivity : AppCompatActivity() {
     lateinit var viewModel: SplashViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("theme",false))
@@ -28,7 +28,6 @@ class SplashActivity : AppCompatActivity(),SplashView {
         setContentView(R.layout.activity_splash)
         //init viewModel
         viewModel = SplashViewModel(this)
-        viewModel.setView(this)
         //set textview
         findViewById<TextView>(R.id.textViewInfoSplash).text =
             "${viewModel.welcomeText}\n${viewModel.counterText}"
@@ -38,9 +37,10 @@ class SplashActivity : AppCompatActivity(),SplashView {
         viewModel.completeSplash()
 
 
+        viewModel.finishActivity.observe(this,{
+            if(it)
+                finish()
+        })
     }
 
-    override fun finishActivity() {
-        finish()
-    }
 }

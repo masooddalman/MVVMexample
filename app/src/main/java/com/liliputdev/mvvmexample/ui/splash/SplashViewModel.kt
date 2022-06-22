@@ -3,6 +3,8 @@ package com.liliputdev.mvvmexample.ui.splash
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.liliputdev.mvvmexample.storage.Prefererences
 import com.liliputdev.mvvmexample.ui.login.LoginActivity
@@ -16,11 +18,8 @@ import kotlinx.coroutines.launch
  * Created by Masood Dalman on 6/11/2022.
  */
 class SplashViewModel constructor(private val context: Context) : ViewModel() {
-    var splashView: SplashView? =null
-    fun setView(view: SplashView)
-    {
-        splashView=view
-    }
+
+    var finishActivity=MutableLiveData<Boolean>(false)
 
     val welcomeText: String
         get() {
@@ -66,7 +65,7 @@ class SplashViewModel constructor(private val context: Context) : ViewModel() {
                 //go to login activity
                 context.startActivity(intentLoginActivity)
             }
-            splashView?.finishActivity()
+            finishActivity.postValue(true)
         }
     }
 }
