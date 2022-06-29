@@ -9,10 +9,16 @@ import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
+    lateinit var viewModel: MainActivityViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel=MainActivityViewModel(this)
+        
+
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
