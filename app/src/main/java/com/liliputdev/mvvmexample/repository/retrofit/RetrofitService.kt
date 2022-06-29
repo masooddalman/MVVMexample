@@ -1,6 +1,7 @@
 package com.liliputdev.mvvmexample.repository.retrofit
 
 import android.util.JsonReader
+import com.liliputdev.mvvmexample.repository.retrofit.apiModel.APIModelAllProduct
 import com.liliputdev.mvvmexample.repository.retrofit.apiModel.ApiLoginModel
 import com.liliputdev.mvvmexample.repository.retrofit.sendModel.SendModelLogin
 import okhttp3.OkHttpClient
@@ -13,6 +14,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import okhttp3.Interceptor
 import okhttp3.Request
+import retrofit2.http.GET
 
 
 /**
@@ -37,5 +39,8 @@ interface RetrofitService {
 
     @POST("auth/login")
     fun login(@Body loginBody:SendModelLogin): Call<ApiLoginModel>
+
+    @GET("products")
+    fun getAllProduct():Call<APIModelAllProduct>
 
 }
