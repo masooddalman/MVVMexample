@@ -12,13 +12,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainActivityViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         viewModel=MainActivityViewModel(this)
-        
+        setContentView(R.layout.activity_main)
+
+
 
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)

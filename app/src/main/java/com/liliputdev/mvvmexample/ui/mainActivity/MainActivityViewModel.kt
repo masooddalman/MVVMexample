@@ -14,5 +14,24 @@ import retrofit2.Response
  * Created by Masood Dalman on 6/29/2022.
  */
 class MainActivityViewModel(val context: Context):ViewModel() {
+    val _retrofit= RetrofitService.getInstance()
+    private var  repository: WebRepository = WebRepository(_retrofit)
 
+    fun getAllProduct()
+    {
+        val response=repository.getAllProduct()
+        response.enqueue(object : Callback<APIModelAllProduct> {
+            override fun onResponse(
+                call: Call<APIModelAllProduct>,
+                response: Response<APIModelAllProduct>
+            ) {
+                Log.v("masood","all product size: ${response.body()?.size}")
+            }
+
+            override fun onFailure(call: Call<APIModelAllProduct>, t: Throwable) {
+                Log.v("masood","all product failed")
+            }
+
+        });
+    }
 }
