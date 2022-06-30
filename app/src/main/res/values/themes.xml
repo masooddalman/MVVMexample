@@ -30,4 +30,20 @@
     </style>
 
     <style name="Splash" parent="Theme.Material3.Light.NoActionBar"/>
+
+    <style name="PriceText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">35sp</item>
+        <item name="color">@color/md_theme_light_secondary</item>
+    </style>
+
+    <style name="RatingText">
+        <item name="android:textStyle">italic</item>
+        <item name="color">@color/md_theme_dark_outline</item>
+    </style>
+
+    <style name="TitleText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
