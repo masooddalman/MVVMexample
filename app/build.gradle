@@ -52,6 +52,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    //recyclerview adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
+
     //test
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
