@@ -4,11 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
@@ -45,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId){
             R.id.menuSettings->{
                 startActivity(Intent(this,SettingsActivity::class.java))
+            }
+            R.id.menuFilter->{
+
             }
         }
 
