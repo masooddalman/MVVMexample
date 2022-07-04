@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setViews()
+        observeOnLiveData()
+
+        viewModel.getAllProduct()
 
     }
 
@@ -37,7 +40,14 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter=adapter
     }
 
-
+    @SuppressLint("NotifyDataSetChanged")
+    fun observeOnLiveData()
+    {
+        viewModel.listData.observe(this, Observer {
+            adapter.addData(it)
+            adapter.notifyDataSetChanged()
+        })
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
