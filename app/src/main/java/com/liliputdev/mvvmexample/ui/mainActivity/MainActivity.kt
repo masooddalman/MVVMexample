@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
+import com.liliputdev.mvvmexample.repository.retrofit.apiModel.Category
+import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this,SettingsActivity::class.java))
             }
             R.id.menuFilter->{
-
+                FiltersDialog().initialize(this,layoutInflater).show(listOf(Category.Electronics,Category.Jewelery,Category.MenSClothing,Category.WomenSClothing))
             }
         }
 
