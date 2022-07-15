@@ -10,6 +10,6 @@ import com.liliputdev.mvvmexample.repository.retrofit.apiModel.Category
  */
 class AdapterFilterDialog:BaseQuickAdapter<Category,BaseViewHolder>(R.layout.item_filter_dialog) {
     override fun convert(holder: BaseViewHolder, item: Category) {
-        holder.setText(android.R.id.text1,item.name)
+        holder.setText(R.id.text1,item.name).setText(R.id.text2,"filter in ${item.name} stuff...")
     }
 }
