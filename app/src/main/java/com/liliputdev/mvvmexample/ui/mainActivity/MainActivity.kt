@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,15 +18,16 @@ import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
 import com.liliputdev.mvvmexample.repository.retrofit.apiModel.Category
 import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
+import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainActivityViewModel
-    private val adapter=ProductListAdapter()
+    private val adapter = ProductListAdapter()
     lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel=MainActivityViewModel(this)
+        viewModel = MainActivityViewModel(this)
         setContentView(R.layout.activity_main)
 
         setViews()
@@ -35,25 +37,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setViews()
-    {
+    private fun setViews() {
         //enable empty layout
-        adapter.isUseEmpty=true
+        adapter.isUseEmpty = true
         //use progress view to show while app is trying to fetch data from API
         adapter.setEmptyView(R.layout.list_loading_layout)
         //enable one time animation while scrolling
-        adapter.animationEnable=true
+        adapter.animationEnable = true
         //type of the animation
         adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
 
-        recyclerView=findViewById(R.id.recyclerViewMainActivity)
-        recyclerView.layoutManager=LinearLayoutManager(this)
-        recyclerView.adapter=adapter
+        recyclerView = findViewById(R.id.recyclerViewMainActivity)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun observeOnLiveData()
-    {
+    fun observeOnLiveData() {
         viewModel.listData.observe(this, Observer {
             adapter.addData(it)
             adapter.notifyDataSetChanged()
@@ -61,18 +61,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu,menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item.itemId){
-            R.id.menuSettings->{
-                startActivity(Intent(this,SettingsActivity::class.java))
+        when (item.itemId) {
+            R.id.menuSettings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
-            R.id.menuFilter->{
-                FiltersDialog().initialize(this,layoutInflater).show(listOf(Category.Electronics,Category.Jewelery,Category.MenSClothing,Category.WomenSClothing))
+            R.id.menuFilter -> {
+                FiltersDialog().initialize(this, layoutInflater).show(
+                    listOf(
+                        Category.Electronics,
+                        Category.Jewelery,
+                        Category.MenSClothing,
+                        Category.WomenSClothing
+                    ),
+                    object : FilterDialogCallBack {
+                        override fun onFilterSelected(category: Category) {
+                            Toast.makeText(this@MainActivity, category.name, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                )
             }
         }
 
