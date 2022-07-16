@@ -11,6 +11,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.repository.retrofit.apiModel.Category
 import com.liliputdev.mvvmexample.ui.dialogs.adaptrs.AdapterFilterDialog
+import androidx.annotation.NonNull
+
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
+
 
 /**
  * Created by Masood Dalman on 7/5/2022.
@@ -27,7 +32,7 @@ class FiltersDialog {
         return this
     }
 
-    fun show(categories:Collection<Category>) {
+    fun show(categories:Collection<Category>,callBack: FilterDialogCallBack) {
         dialog = BottomSheetDialog(context)
         val view = layoutInflater.inflate(R.layout.dialog_filter_categpry_layout, null)
         dialog.setContentView(view)
@@ -35,17 +40,23 @@ class FiltersDialog {
         val adapter = AdapterFilterDialog()
 
         recyclerview.layoutManager=LinearLayoutManager(context)
-        recyclerview.adapter = adapter
+
         adapter.addData(categories)
         adapter.notifyDataSetChanged()
-        adapter.setOnItemClickListener { adapter, view, position ->
+        /*adapter.setOnItemClickListener { adapter, view, position ->
             Toast.makeText(context, adapter.data[position].toString(), Toast.LENGTH_SHORT).show()
             dialog.dismiss()
 
+        }*/
+        adapter.setOnItemClickListener { adapter, view, position ->
+            callBack.onFilterSelected(categories.elementAt(position))
+            dialog.dismiss()
         }
-        Log.v("masood","adapter size:"+adapter.data.size)
+        recyclerview.adapter = adapter
         dialog.show()
     }
+
+
 
     fun dismiss() {
         dialog.dismiss()
