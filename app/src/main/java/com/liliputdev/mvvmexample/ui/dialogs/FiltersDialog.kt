@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.liliputdev.mvvmexample.R
-import com.liliputdev.mvvmexample.repository.retrofit.apiModel.Category
 import com.liliputdev.mvvmexample.ui.dialogs.adaptrs.AdapterFilterDialog
 import androidx.annotation.NonNull
 
@@ -32,7 +31,7 @@ class FiltersDialog {
         return this
     }
 
-    fun show(categories:Collection<Category>,callBack: FilterDialogCallBack) {
+    fun show(categories:Collection<String>,callBack: FilterDialogCallBack) {
         dialog = BottomSheetDialog(context)
         val view = layoutInflater.inflate(R.layout.dialog_filter_categpry_layout, null)
         dialog.setContentView(view)
