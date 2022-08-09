@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
-import com.liliputdev.mvvmexample.repository.retrofit.apiModel.Category
 import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
 import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
@@ -74,15 +73,17 @@ class MainActivity : AppCompatActivity() {
             R.id.menuFilter -> {
                 FiltersDialog().initialize(this, layoutInflater).show(
                     listOf(
-                        Category.Electronics,
-                        Category.Jewelery,
-                        Category.MenSClothing,
-                        Category.WomenSClothing
+                        "electronics",
+                        "jewelery",
+                        "men's clothing",
+                        "women's clothing"
                     ),
                     object : FilterDialogCallBack {
-                        override fun onFilterSelected(category: Category) {
-                            Toast.makeText(this@MainActivity, category.name, Toast.LENGTH_SHORT)
+                        override fun onFilterSelected(category: String) {
+                            Toast.makeText(this@MainActivity, category, Toast.LENGTH_SHORT)
                                 .show()
+                            adapter.data=viewModel.filterItems(category)
+                            adapter.notifyDataSetChanged()
                         }
                     }
                 )

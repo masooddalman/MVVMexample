@@ -34,6 +34,9 @@ class MainActivityViewModel(val context: Context):ViewModel() {
             ) {
                 Log.v("masood","all product size: ${response.body()?.size}")
                 listData.postValue(response.body())
+                response.body()?.forEach {
+                    Log.v("masood","item : ${it.title} - category:${it.category}")
+                }
             }
 
             override fun onFailure(call: Call<APIModelAllProduct>, t: Throwable) {
@@ -41,5 +44,12 @@ class MainActivityViewModel(val context: Context):ViewModel() {
             }
 
         })
+    }
+
+    fun filterItems(category: String):ArrayList<APIModelAllProductElement>
+    {
+        var result = listData.value?.filter { it->it.category==category} as ArrayList<APIModelAllProductElement>
+        Log.v("masood","filtred item : ${result.size}")
+        return result
     }
 }
