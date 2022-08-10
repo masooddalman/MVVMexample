@@ -37,14 +37,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViews() {
-        //enable empty layout
+       /* //enable empty layout
         adapter.isUseEmpty = true
         //use progress view to show while app is trying to fetch data from API
         adapter.setEmptyView(R.layout.list_loading_layout)
         //enable one time animation while scrolling
         adapter.animationEnable = true
         //type of the animation
-        adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
+        adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)*/
 
         recyclerView = findViewById(R.id.recyclerViewMainActivity)
         recyclerView.layoutManager = LinearLayoutManager(this)
