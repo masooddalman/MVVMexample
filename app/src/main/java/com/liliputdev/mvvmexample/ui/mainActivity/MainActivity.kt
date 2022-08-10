@@ -80,8 +80,6 @@ class MainActivity : AppCompatActivity() {
                     ),
                     object : FilterDialogCallBack {
                         override fun onFilterSelected(category: String) {
-                            Toast.makeText(this@MainActivity, category, Toast.LENGTH_SHORT)
-                                .show()
                             adapter.data=viewModel.filterItems(category)
                             adapter.notifyDataSetChanged()
                         }
