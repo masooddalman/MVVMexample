@@ -3,6 +3,7 @@ package com.liliputdev.mvvmexample.ui.dialogs
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,16 +43,16 @@ class FiltersDialog {
 
         adapter.addData(categories)
         adapter.notifyDataSetChanged()
-        /*adapter.setOnItemClickListener { adapter, view, position ->
-            Toast.makeText(context, adapter.data[position].toString(), Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
-
-        }*/
         adapter.setOnItemClickListener { adapter, view, position ->
             callBack.onFilterSelected(categories.elementAt(position))
             dialog.dismiss()
         }
         recyclerview.adapter = adapter
+        val clear=view.findViewById<TextView>(R.id.textViewDialogFilterClear)
+        clear.setOnClickListener {
+            callBack.onFilterSelected("")
+            dialog.dismiss()
+        }
         dialog.show()
     }
 
