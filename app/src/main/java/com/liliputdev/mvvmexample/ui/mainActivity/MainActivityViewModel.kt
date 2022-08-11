@@ -48,6 +48,8 @@ class MainActivityViewModel(val context: Context):ViewModel() {
 
     fun filterItems(category: String):ArrayList<APIModelAllProductElement>
     {
+        if (category.isEmpty())
+            return listData.value!!
         var result = listData.value?.filter { it->it.category==category} as ArrayList<APIModelAllProductElement>
         Log.v("masood","filtred item : ${result.size}")
         return result
