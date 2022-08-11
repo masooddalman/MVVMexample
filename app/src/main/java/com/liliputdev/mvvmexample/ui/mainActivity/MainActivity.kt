@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViews() {
+        //the default animations won't work because of using picasso in the adapters
+        //so we comment them and we will implement items animation manually inside the adapter
        /* //enable empty layout
         adapter.isUseEmpty = true
         //use progress view to show while app is trying to fetch data from API
