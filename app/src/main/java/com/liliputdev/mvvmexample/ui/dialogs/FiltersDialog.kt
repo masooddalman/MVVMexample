@@ -32,10 +32,12 @@ class FiltersDialog {
         return this
     }
 
-    fun show(categories:Collection<String>,callBack: FilterDialogCallBack) {
+    fun show(dialogTitle:String,categories:Collection<Pair<String,String>>,callBack: FilterDialogCallBack) {
         dialog = BottomSheetDialog(context)
         val view = layoutInflater.inflate(R.layout.dialog_filter_categpry_layout, null)
         dialog.setContentView(view)
+        val title=view.findViewById<TextView>(R.id.textviewDialogFilterTitle);
+        title.text=dialogTitle
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerviewDialogFilter)
         val adapter = AdapterFilterDialog()
 
@@ -44,7 +46,7 @@ class FiltersDialog {
         adapter.addData(categories)
         adapter.notifyDataSetChanged()
         adapter.setOnItemClickListener { adapter, view, position ->
-            callBack.onFilterSelected(categories.elementAt(position))
+            callBack.onFilterSelected(categories.elementAt(position).first)
             dialog.dismiss()
         }
         recyclerview.adapter = adapter
