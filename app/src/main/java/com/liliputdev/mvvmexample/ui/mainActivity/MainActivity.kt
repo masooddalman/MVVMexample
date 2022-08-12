@@ -88,6 +88,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 )
             }
+            R.id.menuSort->{
+                
+            }
         }
 
         return super.onOptionsItemSelected(item)
