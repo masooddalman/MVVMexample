@@ -73,12 +73,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             R.id.menuFilter -> {
-                FiltersDialog().initialize(this, layoutInflater).show(
+                FiltersDialog().initialize(this, layoutInflater).show("Filters",
                     listOf(
-                        "electronics",
-                        "jewelery",
-                        "men's clothing",
-                        "women's clothing"
+                        Pair("electronics","show only electronics stuff"),
+                        Pair("jewelery","show only jewelries"),
+                        Pair("men's clothing","show only men's clothing"),
+                        Pair("women's clothing","show only women's clothing"),
                     ),
                     object : FilterDialogCallBack {
                         override fun onFilterSelected(category: String) {
@@ -89,7 +89,18 @@ class MainActivity : AppCompatActivity() {
                 )
             }
             R.id.menuSort->{
-                
+                FiltersDialog().initialize(this, layoutInflater).show("Sort By",
+                    listOf(
+                        Pair("name","sorting entire list based on items name"),
+                        Pair("price","sorting entire list based on items price"),
+                        Pair("rate","sorting entire list based on items rating")
+                    ),
+                    object : FilterDialogCallBack {
+                        override fun onFilterSelected(sort: String) {
+
+                        }
+                    }
+                )
             }
         }
 
