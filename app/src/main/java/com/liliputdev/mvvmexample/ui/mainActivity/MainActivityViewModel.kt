@@ -54,4 +54,18 @@ class MainActivityViewModel(val context: Context):ViewModel() {
         Log.v("masood","filtred item : ${result.size}")
         return result
     }
+
+    fun sortItems(sort:String):ArrayList<APIModelAllProductElement>
+    {
+        if(sort.isEmpty())
+            return listData.value!!
+        val result=listData.value
+        when (sort) {
+            "name" -> {
+                result?.sortBy { it.title }
+            }
+            else -> {}
+        }
+        return result!!
+    }
 }
