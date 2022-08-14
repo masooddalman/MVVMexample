@@ -61,6 +61,9 @@ class MainActivityViewModel(val context: Context):ViewModel() {
             "name" -> {
                 result?.sortBy { it.title }
             }
+            "price"->{
+                result?.sortBy { it.price }
+            }
             else -> {// clear sort
                 result?.sortBy { it.id }
             }
