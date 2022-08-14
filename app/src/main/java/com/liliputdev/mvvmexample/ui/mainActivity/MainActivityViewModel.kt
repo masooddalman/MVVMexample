@@ -55,16 +55,15 @@ class MainActivityViewModel(val context: Context):ViewModel() {
         return result
     }
 
-    fun sortItems(sort:String):ArrayList<APIModelAllProductElement>
-    {
-        if(sort.isEmpty())
-            return listData.value!!
-        val result=listData.value
+    fun sortItems(sort: String): ArrayList<APIModelAllProductElement> {
+        val result = listData.value
         when (sort) {
             "name" -> {
                 result?.sortBy { it.title }
             }
-            else -> {}
+            else -> {// clear sort
+                result?.sortBy { it.id }
+            }
         }
         return result!!
     }
