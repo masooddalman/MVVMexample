@@ -14,11 +14,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
 import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
 import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
+import com.mikepenz.actionitembadge.library.ActionItemBadge
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainActivityViewModel
@@ -97,7 +100,8 @@ class MainActivity : AppCompatActivity() {
                     ),
                     object : FilterDialogCallBack {
                         override fun onFilterSelected(sort: String) {
-
+                            adapter.data = viewModel.sortItems(sort)
+                            adapter.notifyDataSetChanged()
                         }
                     }
                 )
