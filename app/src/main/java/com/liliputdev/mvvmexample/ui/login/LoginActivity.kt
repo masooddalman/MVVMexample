@@ -1,21 +1,16 @@
 package com.liliputdev.mvvmexample.ui.login
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import com.liliputdev.mvvmexample.R
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Intent
-import android.view.View
-import android.widget.ProgressBar
-import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.Observer
-import com.liliputdev.mvvmexample.extention.getOrWaitForValue
 import com.liliputdev.mvvmexample.ui.mainActivity.MainActivity
 
 

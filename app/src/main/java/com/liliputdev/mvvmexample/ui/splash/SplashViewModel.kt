@@ -1,15 +1,12 @@
 package com.liliputdev.mvvmexample.ui.splash
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.liliputdev.mvvmexample.storage.Prefererences
 import com.liliputdev.mvvmexample.ui.login.LoginActivity
 import com.liliputdev.mvvmexample.ui.mainActivity.MainActivity
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

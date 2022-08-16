@@ -2,26 +2,18 @@ package com.liliputdev.mvvmexample.ui.mainActivity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
 import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
 import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
-import com.mikepenz.actionitembadge.library.ActionItemBadge
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainActivityViewModel
@@ -40,17 +32,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViews() {
-        //the default animations won't work because of using picasso in the adapters
-        //so we comment them and we will implement items animation manually inside the adapter
-       /* //enable empty layout
-        adapter.isUseEmpty = true
-        //use progress view to show while app is trying to fetch data from API
-        adapter.setEmptyView(R.layout.list_loading_layout)
-        //enable one time animation while scrolling
-        adapter.animationEnable = true
-        //type of the animation
-        adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)*/
-
         recyclerView = findViewById(R.id.recyclerViewMainActivity)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter

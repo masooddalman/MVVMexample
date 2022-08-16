@@ -1,6 +1,5 @@
 package com.liliputdev.mvvmexample.ui.login
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -13,9 +12,6 @@ import com.liliputdev.mvvmexample.repository.retrofit.RetrofitService
 import com.liliputdev.mvvmexample.repository.retrofit.WebRepository
 import com.liliputdev.mvvmexample.repository.retrofit.apiModel.ApiLoginModel
 import com.liliputdev.mvvmexample.storage.Prefererences
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -132,20 +128,6 @@ class LoginViewModel constructor(val context: Context) : ViewModel() {
             }
 
         })
-  /*      GlobalScope.launch {
-            delay(1000)
-            if (username.equals("atuny0") && password.equals("9uQFF1Lh")) {
-                loginState.postValue(true)
-                Prefererences(context).setUserLoggedIn()
-            }
-            else
-            {
-                loginState.postValue(false)
-                usernameError.postValue(Pair(true,"wrong username"))
-                passwordError.postValue(Pair(true,"wrong password"))
-            }
-            showLoading.postValue(false)
-        }*/
     }
 
 }

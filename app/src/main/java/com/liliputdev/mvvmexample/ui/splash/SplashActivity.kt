@@ -1,18 +1,12 @@
 package com.liliputdev.mvvmexample.ui.splash
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.liliputdev.mvvmexample.R
-import com.liliputdev.mvvmexample.ui.login.LoginActivity
-import com.liliputdev.mvvmexample.ui.mainActivity.MainActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

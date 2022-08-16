@@ -1,18 +1,10 @@
 package com.liliputdev.mvvmexample.ui.settings
 
 import android.os.Bundle
-import android.view.View
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import com.liliputdev.mvvmexample.R
-import android.content.SharedPreferences
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.util.Log
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.PreferenceManager
-import com.liliputdev.mvvmexample.storage.Prefererences
-import java.util.prefs.Preferences
 
 
 class SettingsActivity : AppCompatActivity() {

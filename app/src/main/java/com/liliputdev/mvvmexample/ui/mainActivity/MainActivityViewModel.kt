@@ -2,12 +2,8 @@ package com.liliputdev.mvvmexample.ui.mainActivity
 
 import android.content.Context
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.repository.retrofit.RetrofitService
 import com.liliputdev.mvvmexample.repository.retrofit.WebRepository
 import com.liliputdev.mvvmexample.repository.retrofit.apiModel.APIModelAllProduct

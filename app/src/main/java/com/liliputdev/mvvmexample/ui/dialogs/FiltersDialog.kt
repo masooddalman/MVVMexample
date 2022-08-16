@@ -1,19 +1,13 @@
 package com.liliputdev.mvvmexample.ui.dialogs
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.ui.dialogs.adaptrs.AdapterFilterDialog
-import androidx.annotation.NonNull
-
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
 
 
@@ -47,13 +41,13 @@ class FiltersDialog {
         adapter.notifyDataSetChanged()
         adapter.setOnItemClickListener { adapter, view, position ->
             callBack.onFilterSelected(categories.elementAt(position).first)
-            dialog.dismiss()
+            dismiss()
         }
         recyclerview.adapter = adapter
         val clear=view.findViewById<TextView>(R.id.textViewDialogFilterClear)
         clear.setOnClickListener {
             callBack.onFilterSelected("")
-            dialog.dismiss()
+            dismiss()
         }
         dialog.show()
     }
