@@ -57,29 +57,29 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             R.id.menuFilter -> {
-                FiltersDialog().initialize(this, layoutInflater).show("Filters",
-                    listOf(
-                        Pair("electronics","show only electronics stuff"),
-                        Pair("jewelery","show only jewelries"),
-                        Pair("men's clothing","show only men's clothing"),
-                        Pair("women's clothing","show only women's clothing"),
+                FiltersDialog().initialize(this, layoutInflater).show(dialogTitle = "Filters",
+                    categories = listOf(
+                        Pair("electronics", "show only electronics stuff"),
+                        Pair("jewelery", "show only jewelries"),
+                        Pair("men's clothing", "show only men's clothing"),
+                        Pair("women's clothing", "show only women's clothing"),
                     ),
-                    object : FilterDialogCallBack {
+                    callBack = object : FilterDialogCallBack {
                         override fun onFilterSelected(category: String) {
-                            adapter.data=viewModel.filterItems(category)
+                            adapter.data = viewModel.filterItems(category)
                             adapter.notifyDataSetChanged()
                         }
                     }
                 )
             }
-            R.id.menuSort->{
-                FiltersDialog().initialize(this, layoutInflater).show("Sort By",
-                    listOf(
-                        Pair("name","sorting entire list based on items name"),
-                        Pair("price","sorting entire list based on items price"),
-                        Pair("rate","sorting entire list based on items rating")
+            R.id.menuSort -> {
+                FiltersDialog().initialize(this, layoutInflater).show(dialogTitle = "Sort By",
+                    categories = listOf(
+                        Pair("name", "sorting entire list based on items name"),
+                        Pair("price", "sorting entire list based on items price"),
+                        Pair("rate", "sorting entire list based on items rating")
                     ),
-                    object : FilterDialogCallBack {
+                    callBack = object : FilterDialogCallBack {
                         override fun onFilterSelected(sort: String) {
                             adapter.data = viewModel.sortItems(sort)
                             adapter.notifyDataSetChanged()
