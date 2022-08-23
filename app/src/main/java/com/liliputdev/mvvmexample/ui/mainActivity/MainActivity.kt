@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
 import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
+import com.liliputdev.mvvmexample.ui.dialogs.SortDialog
+import com.liliputdev.mvvmexample.ui.dialogs.dataModel.SortFilterDataModel
 import com.liliputdev.mvvmexample.ui.dialogs.interfaces.FilterDialogCallBack
+import com.liliputdev.mvvmexample.ui.dialogs.interfaces.SortDialogCallback
 import com.liliputdev.mvvmexample.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
@@ -73,15 +76,15 @@ class MainActivity : AppCompatActivity() {
                 )
             }
             R.id.menuSort -> {
-                FiltersDialog().initialize(this, layoutInflater).show(dialogTitle = "Sort By",
-                    categories = listOf(
-                        Pair("name", "sorting entire list based on items name"),
-                        Pair("price", "sorting entire list based on items price"),
-                        Pair("rate", "sorting entire list based on items rating")
+                SortDialog().initialize(this, layoutInflater).show(
+                    dialogTitle = "Sort By", sortList = mutableListOf(
+                        SortFilterDataModel("name", "sorting entire list based on items name"),
+                        SortFilterDataModel("price", "sorting entire list based on items price"),
+                        SortFilterDataModel("rate", "sorting entire list based on items rating"),
                     ),
-                    callBack = object : FilterDialogCallBack {
-                        override fun onFilterSelected(sort: String) {
-                            adapter.data = viewModel.sortItems(sort)
+                    callBack = object : SortDialogCallback {
+                        override fun onSortSelected(sort: String, asc: Boolean) {
+                            adapter.data=viewModel.sortItems(sort,asc)
                             adapter.notifyDataSetChanged()
                         }
                     }
