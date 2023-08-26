@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.liliputdev.mvvmexample.repository.database.FavDatabase
+import com.liliputdev.mvvmexample.repository.database.dataModel.FavProduct
 import com.liliputdev.mvvmexample.repository.retrofit.RetrofitService
 import com.liliputdev.mvvmexample.repository.retrofit.WebRepository
 import com.liliputdev.mvvmexample.repository.retrofit.apiModel.APIModelAllProduct
@@ -19,8 +21,10 @@ class MainActivityViewModel(val context: Context) : ViewModel() {
     val _retrofit = RetrofitService.getInstance()
     private var repository: WebRepository = WebRepository(_retrofit)
     val listData = MutableLiveData<ArrayList<APIModelAllProductElement>>()
+    val favDb=FavDatabase.getInstance(context)
 
     fun getAllProduct() {
+        val favProduct=getAllFavProduct()
         val response = repository.getAllProduct()
         response.enqueue(object : Callback<APIModelAllProduct> {
             override fun onResponse(
@@ -28,6 +32,9 @@ class MainActivityViewModel(val context: Context) : ViewModel() {
                 response: Response<APIModelAllProduct>
             ) {
                 Log.v("masood", "all product size: ${response.body()?.size}")
+                response.body()?.forEach {
+                    it.isfaved=isThisProductFaved(it.id,favProduct)
+                }
                 listData.postValue(response.body())
                 response.body()?.forEach {
                     Log.v("masood", "item : ${it.title} - category:${it.category}")
@@ -76,5 +83,35 @@ class MainActivityViewModel(val context: Context) : ViewModel() {
             }
         }
         return result!!
+    }
+
+    fun getAllFavProduct(): List<FavProduct> {
+        return favDb.favDao().getFavList()
+    }
+
+    private fun isThisProductFaved(id:Int,favProducts:List<FavProduct>):Boolean
+    {
+        var result=false
+        favProducts.forEach {
+            if(it.id==id)
+            {
+                result=it.isFaved
+            }
+        }
+        return result
+    }
+
+    fun manageFav(model: APIModelAllProductElement)
+    {
+        if(model.isfaved)
+        {
+            //remove
+            favDb.favDao().delete(FavProduct(model.id,true))
+        }
+        else
+        {
+            //add
+            favDb.favDao().addNewFav(FavProduct(model.id,true))
+        }
     }
 }
