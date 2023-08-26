@@ -5,12 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.liliputdev.mvvmexample.R
 import com.liliputdev.mvvmexample.adapters.ProductListAdapter
+import com.liliputdev.mvvmexample.repository.retrofit.apiModel.APIModelAllProductElement
 import com.liliputdev.mvvmexample.ui.dialogs.FiltersDialog
 import com.liliputdev.mvvmexample.ui.dialogs.SortDialog
 import com.liliputdev.mvvmexample.ui.dialogs.dataModel.SortFilterDataModel
@@ -38,6 +42,19 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewMainActivity)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        adapter.setOnItemChildClickListener(object: OnItemChildClickListener{
+            override fun onItemChildClick(
+                adapter: BaseQuickAdapter<*, *>,
+                view: View,
+                position: Int
+            ) {
+                viewModel.manageFav(adapter.data[position] as APIModelAllProductElement)
+                (adapter.data[position] as APIModelAllProductElement).isfaved=!(adapter.data[position] as APIModelAllProductElement).isfaved
+                adapter.notifyItemChanged(position)
+            }
+
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
