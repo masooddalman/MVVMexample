@@ -15,7 +15,8 @@ data class APIModelAllProductElement (
     @SerializedName("description") val description : String,
     @SerializedName("category") val category : String,
     @SerializedName("image") val image : String,
-    @SerializedName("rating") val rating : Rating
+    @SerializedName("rating") val rating : Rating,
+    var isfaved: Boolean =true
 )
 
 data class Rating (
